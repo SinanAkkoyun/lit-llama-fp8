@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  llm:
+    image: sinanakkoyun/lit-llama-pytorch-cuda12.1.1-cudnn8-dev-ubuntu20.04 #nvidia/cuda:12.1.1-cudnn8-devel-ubuntu20.04
+    ports:
+      - '2222:22'
+    volumes:
+      - .:/app
+    working_dir: /app
+    tty: true
+    command: /bin/bash
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
